@@ -8,7 +8,7 @@ __version__ = "0.0.1"
 REPO_NAME = "Customer-churn"
 AUTHOR_USER_NAME = "UvaishLunsheth"
 SRC_REPO = "mlProject"
-AUTHOR_EMAIL = "owaish06@example.com"   
+AUTHOR_EMAIL = "owaish06@gmail.com"   
 
 setuptools.setup(
     name=SRC_REPO,
