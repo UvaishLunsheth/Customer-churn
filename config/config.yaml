@@ -2,7 +2,8 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  source_URL: "data/raw/Telco-Customer-Churn.csv"   
+  source_URL: "https://raw.githubusercontent.com/UvaishLunsheth/Customer-churn/main/data/raw/Telco-Customer-Churn.csv
+"   
   local_data_file: artifacts/data_ingestion/data.csv
   unzip_dir: artifacts/data_ingestion
 
