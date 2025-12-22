@@ -1,0 +1,64 @@
+# ================================
+# General Settings
+# ================================
+
+general:
+  random_state: 42
+
+# ================================
+# Data Splitting
+# ================================
+
+data_split:
+  test_size: 0.2
+  stratify: true
+
+# ================================
+# Feature Engineering Parameters
+# (for reproducibility)
+# ================================
+
+feature_engineering:
+  tenure_bins:
+    - 12
+    - 24
+    - 48
+
+  monthly_charge_quantiles: 3
+
+# ================================
+# Data Transformation
+# ================================
+
+data_transformation:
+  scaling:
+    numerical_scaler: standard   # required for Logistic Regression
+
+  encoding:
+    nominal_encoder: onehot
+    ordinal_endoder: ordinal
+    drop_first: true
+
+# ================================
+# Final Model Selection
+# ================================
+
+model:
+  name: logistic_regression
+  evaluation_metric: roc_auc
+
+# ================================
+# Logistic Regression Parameters
+# ================================
+
+logistic_regression:
+  max_iter: 1000
+  class_weight: balanced
+  solver: lbfgs
+
+# ================================
+# Prediction Threshold
+# ================================
+
+threshold:
+  default: 0.5

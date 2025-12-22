@@ -4,6 +4,9 @@ notebook
 scikit-learn
 matplotlib
 
+xgboost
+catboost
+
 python-box==6.0.2
 PyYAML
 types-PyYAML

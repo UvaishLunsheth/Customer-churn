@@ -1,81 +1,132 @@
-from mlProject.utils.common import read_yaml, create_directories
+import yaml
+from pathlib import Path
+
+from mlProject.constants import CONFIG_FILE_PATH
 from mlProject.entity.config_entity import (
     DataIngestionConfig,
     DataValidationConfig,
+    DataCleaningConfig,
+    FeatureEngineeringConfig,
     DataTransformationConfig,
     ModelTrainerConfig,
-    ModelEvaluationConfig
+    ModelEvaluationConfig,
 )
-from mlProject.constants import *
-from pathlib import Path
+
+from mlProject.utils.common import create_directories
 
 
 class ConfigurationManager:
     def __init__(
         self,
         config_filepath: Path = CONFIG_FILE_PATH,
-        params_filepath: Path = PARAMS_FILE_PATH,
-        schema_filepath: Path = SCHEMA_FILE_PATH
     ):
-        self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
-        self.schema = read_yaml(schema_filepath)
+        with open(config_filepath, "r") as file:
+            self.config = yaml.safe_load(file)
 
-        create_directories([self.config.artifacts_root])
+        self.artifacts_root = Path(self.config["artifacts_root"])
+        create_directories([self.artifacts_root])
+
+    # ================================
+    # Data Ingestion
+    # ================================
 
     def get_data_ingestion_config(self) -> DataIngestionConfig:
-        config = self.config.data_ingestion
+        config = self.config["data_ingestion"]
 
-        create_directories([config.root_dir])
+        create_directories([config["root_dir"]])
 
         return DataIngestionConfig(
-            root_dir=config.root_dir,
-            source_URL=config.source_URL,
-            local_data_file=config.local_data_file,
-            unzip_dir=config.unzip_dir
+            root_dir=Path(config["root_dir"]),
+            source_data_path=Path(config["source_data_path"]),
+            local_data_file=Path(config["local_data_file"]),
         )
+
+    # ================================
+    # Data Validation
+    # ================================
 
     def get_data_validation_config(self) -> DataValidationConfig:
-        config = self.config.data_validation
+        config = self.config["data_validation"]
 
-        create_directories([config.root_dir])
+        create_directories([config["root_dir"]])
 
         return DataValidationConfig(
-            root_dir=config.root_dir,
-            STATUS_FILE=config.STATUS_FILE,
-            all_schema=self.schema
+            root_dir=Path(config["root_dir"]),
+            schema_raw=Path(config["schema_raw"]),
+            schema_processed=Path(config["schema_processed"]),
+            validation_report=Path(config["validation_report"]),
         )
+
+    # ================================
+    # Data Cleaning
+    # ================================
+
+    def get_data_cleaning_config(self) -> DataCleaningConfig:
+        config = self.config["data_cleaning"]
+
+        create_directories([config["root_dir"]])
+
+        return DataCleaningConfig(
+            root_dir=Path(config["root_dir"]),
+            cleaned_data_path=Path(config["cleaned_data_path"]),
+        )
+
+    # ================================
+    # Feature Engineering
+    # ================================
+
+    def get_feature_engineering_config(self) -> FeatureEngineeringConfig:
+        config = self.config["feature_engineering"]
+
+        create_directories([config["root_dir"]])
+
+        return FeatureEngineeringConfig(
+            root_dir=Path(config["root_dir"]),
+            featured_data_path=Path(config["featured_data_path"]),
+        )
+
+    # ================================
+    # Data Transformation
+    # ================================
 
     def get_data_transformation_config(self) -> DataTransformationConfig:
-        config = self.config.data_transformation
+        config = self.config["data_transformation"]
 
-        create_directories([config.root_dir])
+        create_directories([config["root_dir"]])
 
         return DataTransformationConfig(
-            root_dir=config.root_dir,
-            data_path=config.data_path
+            root_dir=Path(config["root_dir"]),
+            transformed_train=Path(config["transformed_train"]),
+            transformed_test=Path(config["transformed_test"]),
+            y_train=Path(config["y_train"]),
+            y_test=Path(config["y_test"]),
+            preprocessor_path=Path(config["preprocessor_path"]),
         )
+
+    # ================================
+    # Model Trainer
+    # ================================
 
     def get_model_trainer_config(self) -> ModelTrainerConfig:
-        config = self.config.model_trainer
+        config = self.config["model_trainer"]
 
-        create_directories([config.root_dir])
+        create_directories([config["root_dir"]])
 
         return ModelTrainerConfig(
-            root_dir=config.root_dir,
-            train_data_path=config.train_data_path,
-            test_data_path=config.test_data_path,
-            model_name=config.model_name
+            root_dir=Path(config["root_dir"]),
+            model_path=Path(config["model_path"]),
         )
 
-    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
-        config = self.config.model_evaluation
+    # ================================
+    # Model Evaluation
+    # ================================
 
-        create_directories([config.root_dir])
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config["model_evaluation"]
+
+        create_directories([config["root_dir"]])
 
         return ModelEvaluationConfig(
-            root_dir=config.root_dir,
-            test_data_path=config.test_data_path,
-            model_path=config.model_path,
-            metric_file_name=config.metric_file_name
+            root_dir=Path(config["root_dir"]),
+            metrics_path=Path(config["metrics_path"]),
         )
