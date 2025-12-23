@@ -214,6 +214,7 @@ __marimo__/
 artifacts/
 
 # Processed / generated data
+data/
 data/processed/
 data/interim/
 
