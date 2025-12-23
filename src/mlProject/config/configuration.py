@@ -115,6 +115,10 @@ class ConfigurationManager:
         return ModelTrainerConfig(
             root_dir=Path(config["root_dir"]),
             model_path=Path(config["model_path"]),
+            train_data_path=Path(config["train_data_path"]),
+            test_data_path=Path(config["test_data_path"]),
+            y_train=Path(config["y_train"]),
+            y_test=Path(config["y_test"])
         )
 
     # ================================
@@ -128,5 +132,8 @@ class ConfigurationManager:
 
         return ModelEvaluationConfig(
             root_dir=Path(config["root_dir"]),
-            metrics_path=Path(config["metrics_path"]),
+            model_path=Path(config["model_path"]),
+            test_data_path=Path(config["test_data_path"]),
+            y_test=Path(config["y_test"]),
+            metrics_path=Path(config["metrics_path"])
         )
