@@ -1,0 +1,96 @@
+# ================================
+# Dataset Schema Configuration
+# ================================
+
+dataset:
+  name: Telco Customer Churn
+  shape:
+    rows: 7043
+    columns: 21
+
+# ================================
+# Column Definitions
+# ================================
+
+columns:
+  customerID: object
+  gender: object
+  SeniorCitizen: int64
+  Partner: object
+  Dependents: object
+  tenure: int64
+  PhoneService: object
+  MultipleLines: object
+  InternetService: object
+  OnlineSecurity: object
+  OnlineBackup: object
+  DeviceProtection: object
+  TechSupport: object
+  StreamingTV: object
+  StreamingMovies: object
+  Contract: object
+  PaperlessBilling: object
+  PaymentMethod: object
+  MonthlyCharges: float64
+  TotalCharges: object
+  Churn: object
+
+# ================================
+# Target Column
+# ================================
+
+target_column: Churn
+
+# ================================
+# Identifier Column
+# ================================
+
+identifier_column: customerID
+
+# ================================
+# Numerical & Categorical Columns
+# ================================
+
+numerical_columns:
+  - SeniorCitizen
+  - tenure
+  - MonthlyCharges
+
+categorical_columns:
+  - gender
+  - Partner
+  - Dependents
+  - PhoneService
+  - MultipleLines
+  - InternetService
+  - OnlineSecurity
+  - OnlineBackup
+  - DeviceProtection
+  - TechSupport
+  - StreamingTV
+  - StreamingMovies
+  - Contract
+  - PaperlessBilling
+  - PaymentMethod
+  - Churn
+
+# ================================
+# Known Data Issues
+# ================================
+
+data_issues:
+  blank_values:
+    TotalCharges: 11
+
+  type_mismatch:
+    - column: TotalCharges
+      expected_type: float64
+      current_type: object
+
+# ================================
+# Validation Rules
+# ================================
+
+validation:
+  allow_duplicates: false
+  allow_missing_values: false
